@@ -132,6 +132,8 @@ public class Board extends AnimationTimer {
             gc.setFill(Color.BLACK);
             gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
+            setText(gc, String.valueOf("Score: " + (dots - 3)), B_HEIGHT / 2, 20);
+
             gc.drawImage(apple, apple_x, apple_y);
 
             for (int z = 0; z < dots; z++) {
@@ -147,16 +149,9 @@ public class Board extends AnimationTimer {
     }
 
     private void gameOver(GraphicsContext gc) {
-        String msg = "Game Over";
-        Text text = new Text(msg);
-        double textWidth = text.getLayoutBounds().getWidth();
-        javafx.scene.text.Font small = new javafx.scene.text.Font("Helvetica", 14);
-
         gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gc.setFont(small);
-        gc.setStroke(Color.WHITE);
-        gc.strokeText(msg, B_WIDTH / 2 - textWidth / 2, B_HEIGHT / 2);
+        setText(gc, "Game Over", B_WIDTH / 2, B_HEIGHT / 2);
 
         this.stop();
     }
@@ -241,4 +236,15 @@ public class Board extends AnimationTimer {
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
+
+    public void setText(GraphicsContext gc, String msg, double positionX, double positionY) {
+        msg = String.valueOf(msg);
+        Text text = new Text(msg);
+        double textWidth = text.getLayoutBounds().getWidth();
+        javafx.scene.text.Font small = new javafx.scene.text.Font("Helvetica", 14);
+        gc.setFont(small);
+        gc.setStroke(Color.WHITE);
+        gc.strokeText(msg, positionX - textWidth / 2, positionY);
+    }
+
 }
