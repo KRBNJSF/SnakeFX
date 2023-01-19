@@ -11,12 +11,12 @@ import javafx.scene.text.Text;
 
 public class Board extends AnimationTimer {
 
-    private final int B_WIDTH = 300;
-    private final int B_HEIGHT = 300;
+    private final int B_WIDTH = 600;
+    private final int B_HEIGHT = 600;
     private final int DOT_SIZE = 10;
     private final int ALL_DOTS = 900;
-    private final int RAND_POS = 29;
-    private final int DELAY = 120_000_000;
+    private final int RAND_POS = 59;
+    private final int DELAY = 80_000_000; //120_000_000 (Refresh every 120 ms)
 
     private final int x[] = new int[ALL_DOTS];
     private final int y[] = new int[ALL_DOTS];
@@ -110,9 +110,17 @@ public class Board extends AnimationTimer {
                 leftDirection = false;
             }
 
+            if (key == KeyCode.R) {
+                inGame = true;
+                rightDirection = true;
+                upDirection = false;
+                downDirection = false;
+                initGame();
+            }
+
         });
 
-        dots = 3;
+        dots = 103;
 
         for (int z = 0; z < dots; z++) {
             x[z] = 50 - z * 10;
@@ -151,7 +159,7 @@ public class Board extends AnimationTimer {
     private void gameOver(GraphicsContext gc) {
         gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        setText(gc, "Game Over", B_WIDTH / 2, B_HEIGHT / 2);
+        setText(gc, "Game Over\n" + "Last score: " + (dots - 3) + "\nPress 'R' to restart", B_WIDTH / 2, B_HEIGHT / 2);
 
         this.stop();
     }
