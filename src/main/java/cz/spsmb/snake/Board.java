@@ -144,6 +144,10 @@ public class Board extends AnimationTimer {
                 initGame();
             }
 
+            if (key == KeyCode.ESCAPE) {
+                System.exit(0);
+            }
+
         });
 
         dots = 3;
