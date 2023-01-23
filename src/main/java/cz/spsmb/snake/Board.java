@@ -50,10 +50,36 @@ public class Board extends AnimationTimer {
             lastUpdate = now;
             doDrawing();
             if (inGame) {
+                goAi();
                 checkApple();
                 checkCollision();
                 move();
             }
+        }
+    }
+
+    private void goAi() {
+        if (x[0] == apple_x && y[0] < apple_y) {
+            downDirection = true;
+            rightDirection = false;
+            leftDirection = false;
+            upDirection = false;
+        } else if (x[0] == apple_x && y[0] > apple_y) {
+            downDirection = false;
+            rightDirection = false;
+            leftDirection = false;
+            upDirection = true;
+        }
+        if (y[0] == apple_y && x[0] < apple_x) {
+            downDirection = false;
+            rightDirection = true;
+            leftDirection = false;
+            upDirection = false;
+        } else if (y[0] == apple_y && x[0] > apple_x) {
+            downDirection = false;
+            rightDirection = false;
+            leftDirection = true;
+            upDirection = false;
         }
     }
 
@@ -120,7 +146,7 @@ public class Board extends AnimationTimer {
 
         });
 
-        dots = 103;
+        dots = 3;
 
         for (int z = 0; z < dots; z++) {
             x[z] = 50 - z * 10;
@@ -207,19 +233,43 @@ public class Board extends AnimationTimer {
         }
 
         if (y[0] >= B_HEIGHT) {
-            inGame = false;
+            //inGame = false;
+            //y[0] = 0;
+            y[0] = B_HEIGHT - 10;
+            leftDirection = true;
+            rightDirection = false;
+            upDirection = false;
+            downDirection = false;
         }
 
         if (y[0] < 0) {
-            inGame = false;
+            //inGame = false;
+            //y[0] = B_HEIGHT;
+            y[0] = 0;
+            leftDirection = false;
+            rightDirection = true;
+            upDirection = false;
+            downDirection = false;
         }
 
         if (x[0] >= B_WIDTH) {
-            inGame = false;
+            //inGame = false;
+            //x[0] = 0;
+            x[0] = B_WIDTH - 10;
+            leftDirection = false;
+            rightDirection = false;
+            upDirection = false;
+            downDirection = true;
         }
 
         if (x[0] < 0) {
-            inGame = false;
+            //inGame = false;
+            //x[0] = B_WIDTH;
+            x[0] = 0;
+            leftDirection = false;
+            rightDirection = false;
+            upDirection = true;
+            downDirection = false;
         }
 
         if (!inGame) {
