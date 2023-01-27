@@ -231,10 +231,31 @@ public class Board extends AnimationTimer {
 
         for (int z = dots; z > 0; z--) {
 
+            if ((x[0] == x[z]) && (y[0] == y[z])) {
+                if (leftDirection) {
+                    leftDirection = false;
+                    upDirection = true;
+                } else if (rightDirection) {
+                    rightDirection = false;
+                    downDirection = true;
+                } else if (upDirection) {
+                    upDirection = false;
+                    rightDirection = true;
+                } else if (downDirection) {
+                    downDirection = false;
+                    leftDirection = true;
+                }
+            }
+        }
+
+
+        for (int z = dots; z > 0; z--) {
+
             if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
                 inGame = false;
             }
         }
+
 
         if (y[0] >= B_HEIGHT) {
             //inGame = false;
